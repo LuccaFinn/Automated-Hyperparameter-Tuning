@@ -4,9 +4,9 @@ Dieses Projekt ist im Rahmen des Integrationsprojektes "Evaluierung unterschiedl
 
 ## ToDo Liste
 
-- [] Ziel für die nächsten 8 Wochen (bis zum Ende des Semesters) festlegen - Wo wollen wir hinkommen
-- [] Auf Framework verständigen - Mit Gruppe 1 absprechen
-- [] 
+- [ ] Ziel für die nächsten 8 Wochen (bis zum Ende des Semesters) festlegen - Wo wollen wir hinkommen
+- [ ] Auf Framework verständigen - Mit Gruppe 1 absprechen
+- [ ] 
 
 ## Autoren
 
