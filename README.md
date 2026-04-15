@@ -10,7 +10,7 @@ Dieses Projekt ist im Rahmen des Integrationsprojektes "Evaluierung unterschiedl
 
 ## Autoren
 
-[Björn Holhöfer](https://github.com/bjzrn) | [Katharina Köhler](https://github.com/) | [Lucca Wicke](https://github.com/LuccaFinn) | [Jonas Christ](https://github.com/jonasc4)
+[Björn Holhöfer](https://github.com/bjzrn) | [Katharina Köhler](https://github.com/kasarahkoe-dotcom) | [Lucca Wicke](https://github.com/LuccaFinn) | [Jonas Christ](https://github.com/jonasc4)
 
 Privates Projekt - Alle Rechte vorbehalten.
 
