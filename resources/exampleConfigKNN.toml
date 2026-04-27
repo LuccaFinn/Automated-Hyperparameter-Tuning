@@ -1,0 +1,29 @@
+#Also das Model Ding ist derzeit halt Platzhalter, da hier derzeit NUR n KNN erzeugt werden kann
+[Model]
+#algorithm = "knn"
+
+[InitialParameters]
+net_layers = [ 7, 10, 1,]
+activation_function = "RELU"
+loss_function = "MSE"
+learn_rate = 0.1
+epochs = 1249
+target_error = 1e-5
+
+[TunedParameters]
+net_layers = [1,6,6,6,1]
+activation_function = ""
+loss_function = ""
+learn_rate = 1
+epochs = 1
+target_error = 1
+
+[Datenstruktur]
+data_input_start = 0
+data_input_end = 6
+data_target_column_y1 = 7
+data_target_column_y2 = 7
+data_path = ""
+
+#Das jetzt alles nur ne ExampleConfig obv. aber die Kommentare wurden halt durch das toml.dump gelöscht aber Erklärungen sind WIP
+#Ihn juckt es derzeit auch nicht, dass Algorithm = "knn" - Also das muss man halt fixen
