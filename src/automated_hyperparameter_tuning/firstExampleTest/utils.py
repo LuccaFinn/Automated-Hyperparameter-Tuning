@@ -1,19 +1,19 @@
-import torch.nn as nn
+import torch.nn as knn
 
 #Im Vergleich zu der Lossfunktion haben wir hier mehr :D Aber auch zu Wenig obv.
 
 def get_activation(function):
     if function == "RELU":
-        return nn.ReLU()
+        return knn.ReLU()
     elif function == "SIGMOID":
-        return nn.Sigmoid()
+        return knn.Sigmoid()
     else:
-        return nn.ReLU()
+        return knn.ReLU()
 
 #Weil es nur n Beispiel ist müssen wir hier obv. nochmehr abfangen als wir derzeit abfangen (nur MSE)
 
 def get_loss(function):
     if function == "MSE":
-        return nn.MSELoss()
+        return knn.MSELoss()
     else:
-        return nn.MSELoss()
+        return knn.MSELoss()
