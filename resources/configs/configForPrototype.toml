@@ -1,0 +1,32 @@
+[Model]
+algorithm = "neural_network"
+
+[Data]
+input_start = 0
+input_end = 6
+target_column = 7
+data_path = "src/resources/data/exampleCSVBanana.csv"
+
+[NeuralNetwork.InitialParameters]
+layer1 = 7
+layer2 = 10
+layer3 = 1
+activation = "relu"
+learning_rate = 0.01
+epochs = 100
+
+[NeuralNetwork.SearchSpace]
+layer1 = [ 1, 100,]
+layer2 = [ 1, 500,]
+layer3 = [ 1, 100,]
+activation = [ "relu", "tanh", "sigmoid",]
+learning_rate = [ 1e-5, 1.0,]
+epochs = [ 10, 500,]
+
+[NeuralNetwork.TunedParameters]
+layer1 = 38
+layer2 = 14
+layer3 = 46
+activation = "tanh"
+learning_rate = 0.01
+epochs = 470
