@@ -11,14 +11,14 @@ class NeuralNet(nn.Module):
             params["layer1"],
             params["layer2"],
             params["layer3"],
-            1  # BUGFIX: Output-Layer fehlte komplett
+            1
         ]
 
         activation = self.get_activation(params["activation"])
 
         for i in range(len(sizes) - 1):
             layers.append(nn.Linear(sizes[i], sizes[i + 1]))
-            # Keine Aktivierung nach dem letzten Layer (Output)
+            #koine Aktivierung nachm letzten layer
             if i < len(sizes) - 2:
                 layers.append(activation)
 

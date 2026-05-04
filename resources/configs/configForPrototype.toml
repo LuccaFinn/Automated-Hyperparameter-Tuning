@@ -14,6 +14,7 @@ layer3 = 1
 activation = "relu"
 learning_rate = 0.01
 epochs = 100
+loss_function = "mse"
 
 [NeuralNetwork.SearchSpace]
 layer1 = [ 1, 100,]
@@ -22,11 +23,13 @@ layer3 = [ 1, 100,]
 activation = [ "relu", "tanh", "sigmoid",]
 learning_rate = [ 1e-5, 1.0,]
 epochs = [ 10, 500,]
+loss_function = [ "mse", "bce",]
 
 [NeuralNetwork.TunedParameters]
-layer1 = 38
-layer2 = 14
-layer3 = 46
+layer1 = 74
+layer2 = 10
+layer3 = 30
 activation = "tanh"
 learning_rate = 0.01
-epochs = 470
+epochs = 341
+loss_function = "mse"

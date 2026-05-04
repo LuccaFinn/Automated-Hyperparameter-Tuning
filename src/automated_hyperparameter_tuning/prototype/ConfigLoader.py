@@ -27,10 +27,10 @@ class ConfigLoader:
     def load_data(self):
         csv_path = self.absolute_csv_path
 
-        print("CSV PATH:", csv_path)
+        print("CSV Pfad:", csv_path)
 
         if not csv_path.exists():
-            raise FileNotFoundError(f"CSV NICHT GEFUNDEN: {csv_path}")
+            raise FileNotFoundError(f"CSV ncith gefunden: {csv_path}")
 
         df = pd.read_csv(csv_path)
 
@@ -46,11 +46,8 @@ class ConfigLoader:
         le = LabelEncoder()
         y = le.fit_transform(y_raw).astype(float)
 
-        # BUGFIX: y ist nach LabelEncoder ein NumPy-Array, kein Pandas-Series.
-        # np.isnan ist korrekt; pd.isna wuerde zwar funktionieren, ist aber
-        # semantisch falsch fuer NumPy-Arrays.
+
         if np.isnan(y).any():
-            print(f"WARNUNG: {np.isnan(y).sum()} nicht-numerische Werte gefunden und entfernt")
             mask = ~np.isnan(y)
             X = X[mask]
             y = y[mask]
@@ -74,4 +71,4 @@ class ConfigLoader:
         with open(target_path, "w") as f:
             toml.dump(self.config, f)
 
-        print(f"CONFIG GESPEICHERT: {target_path}")
+        print(f"Config jespeischert unter: {target_path}")
