@@ -5,7 +5,7 @@ algorithm = "neural_network"
 input_start = 0
 input_end = 6
 target_column = 7
-data_path = "src/resources/data/exampleCSVBanana.csv"
+#data_path = "src/resources/data/exampleCSVBanana.csv"
 
 [NeuralNetwork.InitialParameters]
 layer1 = 7

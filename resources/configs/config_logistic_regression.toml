@@ -1,0 +1,27 @@
+[Model]
+algorithm = "logistic_regression"
+
+[Data]
+input_start = 0
+input_end = 6
+target_column = 7
+test_size = 0.2
+random_state = 42
+
+[LogisticRegression.InitialParameters]
+C = 1.0
+max_iter = 100
+solver = "lbfgs"
+penalty = "l2"
+
+[LogisticRegression.SearchSpace]
+C = [0.001, 100.0]
+max_iter = [100, 1000]
+solver = ["lbfgs", "saga"]
+penalty = ["l2", "none"]
+
+[LogisticRegression.TunedParameters]
+C = 0.0
+max_iter = 0
+solver = ""
+penalty = ""

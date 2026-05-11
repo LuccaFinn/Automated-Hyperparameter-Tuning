@@ -1,0 +1,24 @@
+[Model]
+algorithm = "svm"
+
+[Data]
+input_start = 0
+input_end = 6
+target_column = 7
+test_size = 0.2
+random_state = 42
+
+[SVM.InitialParameters]
+C = 1.0
+kernel = "rbf"
+gamma = "scale"
+
+[SVM.SearchSpace]
+C = [ 0.01, 100.0,]
+kernel = [ "linear", "rbf", "poly", "sigmoid",]
+gamma = [ "scale", "auto",]
+
+[SVM.TunedParameters]
+C = 38.66929589750259
+kernel = "rbf"
+gamma = "scale"
