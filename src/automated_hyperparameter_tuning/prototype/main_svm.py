@@ -8,14 +8,14 @@ from ConfigLoader import ConfigLoader
 from SKLearnEncoderDecoder import SKLearnEncoderDecoder
 from SKLearnGATuner import SKLearnGATuner
 from SKLearnTrainer import SKLearnTrainer
+from datetime import datetime
 
 ALGORITHM = "svm"
 
-
+#Es ist alles schema F, immer das gleich nur für den jeweiligen algo halt angeopasst
 def main():
-    print("START MAIN - SVM")
+    print("Tuning für svm gestartet")
 
-    # 1. CONFIG LADEN
     config_path = os.path.join(
         os.path.dirname(__file__), "..", "..", "..", "resources", "configs", "config_svm.toml"
     )
@@ -23,37 +23,26 @@ def main():
     config_loader = ConfigLoader(config_path)
     config        = config_loader.config
 
-    assert config["Model"]["algorithm"] == ALGORITHM, \
-        f"Falsche Config: erwartet '{ALGORITHM}', gefunden '{config['Model']['algorithm']}'"
-
-    print("CONFIG GELADEN")
-
-    # 2. DATEN LADEN
     X_train, X_val, y_train, y_val = config_loader.load_data()
     data = (X_train, X_val, y_train, y_val)
 
-    print(f"DATA LOADED: X_train={X_train.shape}, y_train={y_train.shape}")
+    print(f"Daten geladen insgesamt: X_train={X_train.shape}, y_train={y_train.shape}")
 
-    # 3. ENCODER + TRAINER
     search_space = config["SVM"]["SearchSpace"]
     encoder      = SKLearnEncoderDecoder(ALGORITHM, search_space)
     trainer      = SKLearnTrainer()
 
-    # 4. INITIAL PARAMS ENKODIEREN
     initial_params  = config["SVM"]["InitialParameters"]
     initial_encoded = encoder.encode(initial_params)
 
-    # 5. GA TUNER
     ga_tuner = SKLearnGATuner(ALGORITHM, encoder, trainer, data)
 
-    # 6. GENE SPACE
     gene_space = [
         {"low": search_space["C"][0],      "high": search_space["C"][1]},
-        {"low": 0,                          "high": 3},   # kernel: 0=linear,1=rbf,2=poly,3=sigmoid
-        {"low": 0,                          "high": 1},   # gamma:  0=scale,1=auto
+        {"low": 0,                          "high": 3},   #kernel:0=linear,1=rbf,2=poly,3=sigmoid
+        {"low": 0,                          "high": 1},   #gamma:0=scale,1=auto
     ]
 
-    # 7. GA SETUP + RUN
     ga = pygad.GA(
         num_generations=10,
         num_parents_mating=4,
@@ -65,25 +54,29 @@ def main():
         mutation_percent_genes=20
     )
 
-    print("GA STARTED")
-    ga.run()
-    print("GA FINISHED")
+    starttime = datetime.now()
+    print("GA gestartet um: " + starttime.strftime('%H:%M:%S'))
 
-    # 8. BESTE LOESUNG
+    ga.run()
+
+    finishtime = datetime.now()
+    print("GA beendet um: " + finishtime.strftime('%H:%M:%S'))
+    dauer = finishtime - starttime
+    print("Dauer insgesamt: " + str(dauer))
+
     solution, fitness, _ = ga.best_solution()
     best_params = encoder.decode(solution)
 
-    print("\n========================")
-    print("BEST RESULT - SVM")
+    print("\n------------------")
+    print("Bestes Ergebnis")
     print("Fitness (Accuracy):", fitness)
-    print("Params:", best_params)
-    print("========================\n")
+    print("Paramameter:", best_params)
+    print("------------------\n")
 
-    # 9. SPEICHERN
     config_loader.config["SVM"]["TunedParameters"] = best_params
     config_loader.save(config_path)
 
-    print("SAVED TO TOML")
+    print("Zurück in TOML geschrieben")
 
 
 if __name__ == "__main__":

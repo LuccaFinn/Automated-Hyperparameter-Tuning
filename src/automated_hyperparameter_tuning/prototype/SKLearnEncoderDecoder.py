@@ -2,27 +2,22 @@ class SKLearnEncoderDecoder:
     def __init__(self, algorithm, search_space):
         self.algorithm = algorithm
 
-        # ── SVM ──────────────────────────────────────────
         self.svm_kernel_map = {0: "linear", 1: "rbf", 2: "poly", 3: "sigmoid"}
         self.svm_gamma_map  = {0: "scale", 1: "auto"}
         self.svm_kernel_rev = {v: k for k, v in self.svm_kernel_map.items()}
         self.svm_gamma_rev  = {v: k for k, v in self.svm_gamma_map.items()}
 
-        # ── KNN ──────────────────────────────────────────
+        #knn ist k nearest neighbors und nicht künstlich neuronales netz
         self.knn_weights_map = {0: "uniform", 1: "distance"}
         self.knn_metric_map  = {0: "euclidean", 1: "manhattan", 2: "minkowski"}
         self.knn_weights_rev = {v: k for k, v in self.knn_weights_map.items()}
         self.knn_metric_rev  = {v: k for k, v in self.knn_metric_map.items()}
 
-        # ── Logistische Regression ────────────────────────
+        #lr ist logistische regression
         self.lr_solver_map  = {0: "lbfgs", 1: "saga"}
         self.lr_penalty_map = {0: "l2", 1: "none"}
         self.lr_solver_rev  = {v: k for k, v in self.lr_solver_map.items()}
         self.lr_penalty_rev = {v: k for k, v in self.lr_penalty_map.items()}
-
-    # ─────────────────────────────────────────────────────
-    # ENCODE
-    # ─────────────────────────────────────────────────────
 
     def encode(self, params):
         if self.algorithm == "svm":
@@ -49,10 +44,6 @@ class SKLearnEncoderDecoder:
             return [0]
         else:
             raise ValueError(f"Unbekannter Algorithmus: {self.algorithm}")
-
-    # ─────────────────────────────────────────────────────
-    # DECODE
-    # ─────────────────────────────────────────────────────
 
     def decode(self, solution):
         if self.algorithm == "svm":

@@ -34,7 +34,6 @@ class SKLearnTrainer:
     def train(self, algorithm, data, params):
         X_train, X_val, y_train, y_val = data
 
-        # NumPy-Arrays fuer sklearn
         if hasattr(X_train, "numpy"):
             X_train = X_train.numpy()
             X_val   = X_val.numpy()
@@ -47,10 +46,10 @@ class SKLearnTrainer:
         predictions = model.predict(X_val)
 
         if algorithm == "linear_regression":
-            # Regression: negativer MSE als Fitness
+            #Wieder gleicher Bumms wegen MSE negative Fitness, wie beim nn halt
             mse = mean_squared_error(y_val, predictions)
             return -mse, model
         else:
-            # Klassifikation: Accuracy als Fitness
+            #bei klassifiatkino accuracy als fitness
             acc = accuracy_score(y_val, predictions)
             return acc, model
