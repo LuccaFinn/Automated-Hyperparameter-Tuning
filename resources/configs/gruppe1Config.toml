@@ -1,0 +1,88 @@
+# AUTOML HYPERPARAMETER REQUEST
+
+[meta]
+# Zeigt den aktuellen Zustand des Dokuments an. "request" bedeutet,
+# dass dieses Dokument eine ausstehende Anfrage ist.
+status = "request"
+
+# Der relative Pfad zur CSV-Datei, die für das Training und das Tuning
+# verwendet werden soll.
+data_path = "ExampleCSVBanana.csv"
+
+# Der spezifische Machine-Learning-Algorithmus, für den die
+# optimale Hyperparameter ermitteln soll.
+selected_algorithm = "RandomForest"
+
+
+[meta.dataset_signature]
+# Statistische Kennzahlen (Metadaten) des Datensatzes. Diese dienen dem
+# AutoML-System zur historischen Vergleichbarkeit (Meta-Learning).
+
+# Eindeutiger Identifikator des Datensatzes. "unknown" bedeutet, dass
+# dieser spezifische Datensatz noch nicht in der Meta-Datenbank existiert.
+dataset_id = "unknown"
+
+# Anwendungsbereich der Daten. "General" ist der Standardwert für
+# generische tabellarische Daten ohne spezifische Fachdomäne.
+domain = "General"
+
+# Anzahl der Beobachtungen (Zeilen/Samples) im Datensatz.
+n = 6400
+
+# Anzahl der Merkmale (Spalten/Features) im Datensatz, exklusive Zielvariable.
+p = 7
+
+# Das Verhältnis von Merkmalen zu Beobachtungen (p / n). Ein sehr niedriger
+# Wert signalisiert eine ausreichend große Datenbasis und ein geringes Risiko für Overfitting.
+dimensionality_ratio = 0.00109375
+
+# Der durchschnittliche Grad der Asymmetrie (Schiefe) über alle numerischen
+# Spalten hinweg. Werte nahe 0 deuten auf symmetrische Verteilungen hin.
+skewness_mean = "0.07994769826979449"
+
+# Die durchschnittliche Wölbung (Kurtosis) der Verteilungen. Gibt an,
+# wie stark Ausreißer an den Rändern der Verteilung vertreten sind.
+mean_kurtosis = "-0.1617447611332707"
+
+# Ein redundanter Wert zur durchschnittlichen Schiefe (skewness_mean)
+# der numerischen Spalten im Datensatz.
+mean_skewness = "0.07994769826979449"
+
+# Der prozentuale Anteil an echten Null-Werten (0) im gesamten Datensatz.
+# 0.0 bedeutet, dass die Matrix keine reinen Nullen enthält (nicht-sparse).
+sparsity = "0.0"
+
+# Das Verhältnis von numerischen zu kategorialen (Text-)Spalten. "inf"
+# (Unendlich) bedeutet, dass Division durch Null vorliegt, weil es exakt
+# 0 kategoriale Spalten gibt. Alle Spalten sind numerisch.
+num_to_cat_ratio = inf
+
+# Der prozentuale Anteil an komplett fehlenden Werten (NaN/Null) im Datensatz.
+# 0.0 bedeutet, dass der Datensatz lückenlos ist.
+missing_density = "0.0"
+
+# Der maximale prozentuale Anteil an fehlenden Werten innerhalb einer
+# einzelnen Spalte.
+max_missing_col_pct = "0.0"
+
+# Das Verhältnis der Klassenverteilung in der Zielvariable (Target).
+# Ein Wert nahe 1.0 bedeutet, dass die zu klassifizierenden Gruppen
+# fast perfekt gleichmäßig verteilt sind.
+class_imbalance_ratio = "1.0031298904538342"
+
+# Die Shannon-Entropie der Zielvariable. Sie misst die Informationsdichte.
+class_entropy = "0.6931459598563237"
+
+
+[model_to_tune.RandomForest]
+# fest definierte Suchraum für den angeforderten Algorithmus
+
+# Die Anzahl der Entscheidungsbäume im Forest. Mehr Bäume erhöhen
+# die Vorhersagestabilität und Genauigkeit
+n_estimators = [ 100, 200, 500,]
+
+# Die maximale Tiefe der einzelnen Entscheidungsbäume. Der String "None"
+# bedeutet, dass die Bäume unbegrenzt wachsen dürfen
+# Die numerischen Werte (10, 20, 30) deckeln die Tiefe, um Overfitting
+# bei komplexen Daten zu verhindern.
+max_depth = [ "None", 10, 20, 30,]
