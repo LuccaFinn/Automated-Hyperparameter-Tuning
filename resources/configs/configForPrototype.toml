@@ -5,7 +5,6 @@ algorithm = "neural_network"
 input_start = 0
 input_end = 6
 target_column = 7
-#data_path = "src/resources/data/exampleCSVBanana.csv"
 
 [NeuralNetwork.InitialParameters]
 layer1 = 7
@@ -17,19 +16,19 @@ epochs = 100
 loss_function = "mse"
 
 [NeuralNetwork.SearchSpace]
-layer1 = [ 1, 100,]
+layer1 = [ 1, 7,]
 layer2 = [ 1, 500,]
-layer3 = [ 1, 100,]
+layer3 = [ 1, 1,]
 activation = [ "relu", "tanh", "sigmoid",]
 learning_rate = [ 1e-5, 1.0,]
 epochs = [ 10, 500,]
 loss_function = [ "mse", "bce",]
 
 [NeuralNetwork.TunedParameters]
-layer1 = 74
-layer2 = 10
-layer3 = 30
-activation = "tanh"
+layer1 = 6
+layer2 = 225
+layer3 = 1
+activation = "relu"
 learning_rate = 0.01
-epochs = 341
+epochs = 231
 loss_function = "mse"

@@ -19,6 +19,6 @@ kernel = [ "linear", "rbf", "poly", "sigmoid",]
 gamma = [ "scale", "auto",]
 
 [SVM.TunedParameters]
-C = 38.66929589750259
+C = 38.472932683639705
 kernel = "rbf"
 gamma = "scale"

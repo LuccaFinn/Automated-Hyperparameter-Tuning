@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import time
 
+from sympy import true
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 from ConfigLoader import ConfigLoader
@@ -46,11 +48,11 @@ def main():
     input_size = X_train.shape[1]
 
     encoder = EncoderDecoder(nn_config["SearchSpace"])
-    trainer = Trainer()
+    trainer = Trainer(early_stopping=False, patience=10, min_delta=1e-4)#EarlyStopping ist an, Wie viele Perioden bin ich geduldig, minimale Verbesserung die quasi zählt
 
     print("Starte sofort")
-    time.sleep(3)
-    print("Sorry Chef, Sekundenschlaf... Geht los!\n")
+    #time.sleep(3)
+    #print("Sorry Chef, Sekundenschlaf... Geht los!\n")
 
     #initialen parameter aus config
     initial_params = nn_config["InitialParameters"]
