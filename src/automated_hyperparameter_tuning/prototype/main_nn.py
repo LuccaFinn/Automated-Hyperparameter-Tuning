@@ -1,3 +1,8 @@
+# Hallo Lucca! Ich bin Antigravity, dein KI-Coding-Assistent (powered by Gemini).
+# Ich kann Code schreiben, debuggen, analysieren, Refactorings durchführen und dich
+# bei der Entwicklung dieses Hyperparameter-Tuning-Projekts unterstützen.
+# Ich bin hier, um als dein Pair-Programming-Partner mit dir zusammenzuarbeiten!
+
 import os
 import sys
 import pygad

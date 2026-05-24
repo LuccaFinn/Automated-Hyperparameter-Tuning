@@ -9,7 +9,7 @@ def load_config():
     project_root = base_path.parents[3]
 
     #hier liegt die config
-    config_path = project_root / "resources" / "exampleConfigKNN.toml"
+    config_path = project_root / "resources" / "configs" / "configForPrototype.toml"
 
     #liefert einfach die toml als bytes, weil die lib das halt so will, anders geht es nicht
     #Also es geht schon aber mit mehr Kopfschmerzen

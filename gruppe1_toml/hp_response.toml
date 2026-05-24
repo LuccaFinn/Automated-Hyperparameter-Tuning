@@ -1,0 +1,7 @@
+[tuned_hyperparameters]
+RandomForest = { n_estimators = 125, max_depth = "None", accuracy = 0.975625 }
+KNN = { n_neighbors = 5, weights = "uniform", metric = "euclidean", accuracy = 0.980625 }
+SVM = { C = 7.75, kernel = "rbf", gamma = "scale", accuracy = 0.984375 }
+LogisticRegression = { C = 1, max_iter = 100, solver = "lbfgs", penalty = "l2", accuracy = 0.879375 }
+NeuralNetwork = { layer1 = 30, layer2 = 10, layer3 = 1, activation = "relu", learning_rate = 0.01, epochs = 10, loss_function = "mse", accuracy = -0.109697 }
+XGBoost = { learning_rate = 0.0875, max_depth = 5, n_estimators = 100, accuracy = 0.97375 }

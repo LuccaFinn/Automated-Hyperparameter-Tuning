@@ -1,0 +1,46 @@
+[meta]
+status = "request"
+dataset_path = "ExampleCSVBanana.csv"
+target_column = "Quality"
+
+[selected_architectures]
+model1 = "RandomForest"
+model2 = "KNN"
+model3 = "SVM"
+model4 = "LogisticRegression"
+model5 = "NeuralNetwork"
+model6 = "XGBoost"
+
+[search_spaces.RandomForest]
+n_estimators = [ 100, 200,]
+max_depth = [ "None", 10,]
+
+[search_spaces.KNN]
+n_neighbors = [ 5, 10,]
+weights = [ "uniform", "distance",]
+metric = [ "euclidean",]
+
+[search_spaces.SVM]
+C = [ 1.0, 10.0,]
+kernel = [ "rbf",]
+gamma = [ "scale",]
+
+[search_spaces.LogisticRegression]
+C = [ 1.0, 10.0,]
+max_iter = [ 100,]
+solver = [ "lbfgs",]
+penalty = [ "l2",]
+
+[search_spaces.NeuralNetwork]
+layer1 = [ 10, 50,]
+layer2 = [ 10,]
+layer3 = [ 1,]
+activation = [ "relu",]
+learning_rate = [ 0.01,]
+epochs = [ 10,]
+loss_function = [ "mse",]
+
+[search_spaces.XGBoost]
+learning_rate = [ 0.05, 0.1,]
+max_depth = [ 3, 5,]
+n_estimators = [ 100,]

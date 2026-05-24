@@ -1,0 +1,23 @@
+[meta]
+status = "response"
+data_path = "ExampleCSVBanana.csv"
+selected_algorithm = "LogisticRegression"
+
+[meta.dataset_signature]
+dataset_id = "unknown"
+domain = "General"
+n = 6400
+p = 7
+
+[model_to_tune.LogisticRegression]
+C = [ 0.1, 1.0, 10.0,]
+max_iter = [ 100, 200,]
+solver = [ "lbfgs",]
+penalty = [ "l2",]
+
+[model_tuned.LogisticRegression]
+C = 1.0
+max_iter = 127
+solver = "lbfgs"
+penalty = "l2"
+accuracy = 0.879375

@@ -10,6 +10,7 @@ from SKLearnGATuner import SKLearnGATuner
 from SKLearnTrainer import SKLearnTrainer
 from datetime import datetime
 
+
 ALGORITHM = "svm"
 
 #Es ist alles schema F, immer das gleich nur für den jeweiligen algo halt angeopasst

@@ -19,6 +19,6 @@ weights = [ "uniform", "distance",]
 metric = [ "euclidean", "manhattan", "minkowski",]
 
 [KNN.TunedParameters]
-n_neighbors = 13
-weights = "uniform"
+n_neighbors = 27
+weights = "distance"
 metric = "manhattan"

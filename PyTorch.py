@@ -45,7 +45,7 @@ net = NeuralNetClassifier(
 param_grid = {
     'lr': [0.01, 0.05, 0.1],
     'module__hidden_units': [10, 20, 30],
-    'module__activation_fn': [nn.ReLU(), nn.Tanh(), nn.ELU()] 
+    'module__activation_fn': [nn.ReLU(), nn.Tanh(), nn.ELU()]   #TODO: Mehr Funktionen hinzufügen
 }
 
 
@@ -57,7 +57,7 @@ grid_search = GridSearchCV(
     n_jobs=-1
 )
 
-print("Starte PyTorch Hyperparameter Tuning...")
+#print("Starte PyTorch Hyperparameter Tuning...")
 grid_search.fit(X_train, y_train)
 
 # --- Auswertung ---

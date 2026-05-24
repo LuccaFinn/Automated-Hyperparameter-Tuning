@@ -1,0 +1,21 @@
+[meta]
+status = "response"
+data_path = "ExampleCSVBanana.csv"
+selected_algorithm = "SVM"
+
+[meta.dataset_signature]
+dataset_id = "unknown"
+domain = "General"
+n = 6400
+p = 7
+
+[model_to_tune.SVM]
+C = [ 0.1, 1.0, 10.0,]
+kernel = [ "linear", "rbf",]
+gamma = [ "scale", "auto",]
+
+[model_tuned.SVM]
+C = 1.0
+kernel = "rbf"
+gamma = "auto"
+accuracy = 0.984375

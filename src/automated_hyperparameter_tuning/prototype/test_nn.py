@@ -8,7 +8,7 @@ from sklearn.preprocessing import LabelEncoder
 # DATEN LADEN
 # ─────────────────────────────────────────────
 
-CSV_PATH = "C:/Users/bjoer/source/repos/Automated-Hyperparameter-Tuning/resources/data/exampleCSVBanana.csv"
+CSV_PATH = ""
 
 df = pd.read_csv(CSV_PATH)
 

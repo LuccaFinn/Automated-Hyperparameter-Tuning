@@ -1,0 +1,21 @@
+[meta]
+status = "response"
+data_path = "ExampleCSVBanana.csv"
+selected_algorithm = "KNN"
+
+[meta.dataset_signature]
+dataset_id = "unknown"
+domain = "General"
+n = 6400
+p = 7
+
+[model_to_tune.KNN]
+n_neighbors = [ 1, 10, 20, 30,]
+weights = [ "uniform", "distance",]
+metric = [ "euclidean", "manhattan",]
+
+[model_tuned.KNN]
+n_neighbors = 30
+weights = "distance"
+metric = "manhattan"
+accuracy = 0.980625

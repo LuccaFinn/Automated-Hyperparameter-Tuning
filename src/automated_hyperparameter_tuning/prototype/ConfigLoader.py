@@ -16,7 +16,7 @@ class ConfigLoader:
 
         self.config = toml.load(self.config_path)
 
-        self.absolute_csv_path = Path("C:/Users/bjoer/source/repos/Automated-Hyperparameter-Tuning/resources/data/exampleCSVBanana.csv")
+        self.absolute_csv_path = Path("/home/lucca/Documents/banana/ExampleCSVBanana.csv")
 
     def get_nn_config(self):
         return self.config.get("NeuralNetwork", {})
@@ -71,4 +71,4 @@ class ConfigLoader:
         with open(target_path, "w") as f:
             toml.dump(self.config, f)
 
-        print(f"Config jespeischert unter: {target_path}")
+        print(f"Config gespeichert unter: {target_path}")
