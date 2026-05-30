@@ -1,5 +1,7 @@
 import os
 import sys
+from datetime import datetime
+
 import pygad
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -8,42 +10,43 @@ from ConfigLoader import ConfigLoader
 from SKLearnEncoderDecoder import SKLearnEncoderDecoder
 from SKLearnGATuner import SKLearnGATuner
 from SKLearnTrainer import SKLearnTrainer
-from datetime import datetime
 
-ALGORITHM = "logistic_regression"
+ALGORITHM = "xgboost"
 
-#Es ist alles schema F, immer das gleich nur für den jeweiligen algo halt angeopasst
+
 def main():
-    print("Tuning für logistische Regression gestartet")
+    print("Tuning für XGB gestartet")
 
-    # 1. CONFIG LADEN
     config_path = os.path.join(
-        os.path.dirname(__file__), "..", "..", "..", "resources", "configs", "config_logistic_regression.toml"
+        os.path.dirname(__file__), "..", "..", "..", "resources", "configs", "config_xgboost.toml"
     )
 
     config_loader = ConfigLoader(config_path)
     config        = config_loader.config
+
+    assert config["Model"]["algorithm"] == ALGORITHM, \
+        f"Falsche Config: erwartet '{ALGORITHM}', gefunden '{config['Model']['algorithm']}'"
 
     X_train, X_val, y_train, y_val = config_loader.load_data()
     data = (X_train, X_val, y_train, y_val)
 
     print(f"Daten geladen insgesamt: X_train={X_train.shape}, y_train={y_train.shape}")
 
-    search_space = config["LogisticRegression"]["SearchSpace"]
+    search_space = config["XGBoost"]["SearchSpace"]
     encoder      = SKLearnEncoderDecoder(ALGORITHM, search_space)
     task = config["Model"].get("task", "classification")
     trainer = SKLearnTrainer(task=task)
 
-    initial_params  = config["LogisticRegression"]["InitialParameters"]
+    initial_params  = config["XGBoost"]["InitialParameters"]
     initial_encoded = encoder.encode(initial_params)
 
     ga_tuner = SKLearnGATuner(ALGORITHM, encoder, trainer, data)
 
     gene_space = [
-        {"low": search_space["C"][0],        "high": search_space["C"][1]},
-        {"low": search_space["max_iter"][0],  "high": search_space["max_iter"][1]},
-        {"low": 0,                            "high": 1},   #solver: 0=lbfgs,1=saga
-        {"low": 0,                            "high": 1},   #penalty:0=l2,1=none
+        {"low": search_space["n_estimators"][0],  "high": search_space["n_estimators"][1]},
+        {"low": search_space["max_depth"][0],      "high": search_space["max_depth"][1]},
+        {"low": search_space["learning_rate"][0],  "high": search_space["learning_rate"][1]},
+        {"low": search_space["subsample"][0],      "high": search_space["subsample"][1]},
     ]
 
     ga = pygad.GA(
@@ -73,10 +76,10 @@ def main():
     print("\n------------------")
     print("Bestes Ergebnis")
     print("Fitness (F1-Score):", fitness)
-    print("Paramameter:", best_params)
+    print("Parameter:", best_params)
     print("------------------\n")
 
-    config_loader.config["LogisticRegression"]["TunedParameters"] = best_params
+    config_loader.config["XGBoost"]["TunedParameters"] = best_params
     config_loader.save(config_path)
 
     print("Zurück in TOML geschrieben")

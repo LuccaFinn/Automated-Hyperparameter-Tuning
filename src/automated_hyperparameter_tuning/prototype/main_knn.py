@@ -34,7 +34,8 @@ def main():
 
     search_space = config["KNN"]["SearchSpace"]
     encoder      = SKLearnEncoderDecoder(ALGORITHM, search_space)
-    trainer      = SKLearnTrainer()
+    task = config["Model"].get("task", "classification")
+    trainer = SKLearnTrainer(task=task)
 
     # encode für lesbar
     initial_params  = config["KNN"]["InitialParameters"]
@@ -77,7 +78,7 @@ def main():
 
     print("\n------------------")
     print("Bestes Ergebnis")
-    print("Fitness (Accuracy):", fitness)
+    print("Fitness (F1-Score):", fitness)
     print("Parameter", best_params)
     print("------------------\n")
 

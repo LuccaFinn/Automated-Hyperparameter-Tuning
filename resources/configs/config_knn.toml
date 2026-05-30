@@ -1,5 +1,6 @@
 [Model]
 algorithm = "knn"
+task = "regression"   # oder "classification"
 
 [Data]
 input_start = 0

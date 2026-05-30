@@ -1,33 +1,59 @@
 import numpy as np
-from sklearn.svm import SVC
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC, SVR
+from sklearn.neighbors import KNeighborsClassifier, KNeighborsRegressor
 from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.metrics import accuracy_score, mean_squared_error
+from sklearn.metrics import f1_score, mean_squared_error
+from xgboost import XGBClassifier, XGBRegressor
 
 
 class SKLearnTrainer:
+    def __init__(self, task="classification"):
+        self.task = task
+
     def get_model(self, algorithm, params):
         if algorithm == "svm":
-            return SVC(
-                C=params["C"],
-                kernel=params["kernel"],
-                gamma=params["gamma"]
-            )
+            if self.task == "regression":
+                return SVR(C=params["C"], kernel=params["kernel"], gamma=params["gamma"])
+            else:
+                return SVC(C=params["C"], kernel=params["kernel"], gamma=params["gamma"])
         elif algorithm == "knn":
-            return KNeighborsClassifier(
-                n_neighbors=params["n_neighbors"],
-                weights=params["weights"],
-                metric=params["metric"]
-            )
+            if self.task == "regression":
+                return KNeighborsRegressor(
+                    n_neighbors=params["n_neighbors"],
+                    weights=params["weights"],
+                    metric=params["metric"]
+                )
+            else:
+                return KNeighborsClassifier(
+                    n_neighbors=params["n_neighbors"],
+                    weights=params["weights"],
+                    metric=params["metric"]
+                )
         elif algorithm == "logistic_regression":
+            # Logreg immer classifikation
             return LogisticRegression(
                 C=params["C"],
                 max_iter=params["max_iter"],
-                solver=params["solver"],
-                penalty=params["penalty"]
+                solver=params["solver"]
             )
-        elif algorithm == "linear_regression":
-            return LinearRegression()
+        elif algorithm == "xgboost":
+            if self.task == "regression":
+                return XGBRegressor(
+                    n_estimators=params["n_estimators"],
+                    max_depth=params["max_depth"],
+                    learning_rate=params["learning_rate"],
+                    subsample=params["subsample"],
+                    verbosity=0
+                )
+            else:
+                return XGBClassifier(
+                    n_estimators=params["n_estimators"],
+                    max_depth=params["max_depth"],
+                    learning_rate=params["learning_rate"],
+                    subsample=params["subsample"],
+                    eval_metric="logloss",
+                    verbosity=0
+                )
         else:
             raise ValueError(f"Unbekannter Algorithmus: {algorithm}")
 
@@ -45,11 +71,9 @@ class SKLearnTrainer:
 
         predictions = model.predict(X_val)
 
-        if algorithm == "linear_regression":
-            #Wieder gleicher Bumms wegen MSE negative Fitness, wie beim nn halt
+        if self.task == "regression":
             mse = mean_squared_error(y_val, predictions)
             return -mse, model
         else:
-            #bei klassifiatkino accuracy als fitness
-            acc = accuracy_score(y_val, predictions)
-            return acc, model
+            score = f1_score(y_val, predictions, average="weighted")
+            return score, model

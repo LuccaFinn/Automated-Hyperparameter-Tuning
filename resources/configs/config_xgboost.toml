@@ -1,0 +1,28 @@
+[Model]
+algorithm = "xgboost"
+task = "regression"   # oder "classification"
+
+[Data]
+input_start = 0
+input_end = 1
+target_column = 2
+test_size = 0.2
+random_state = 42
+
+[XGBoost.InitialParameters]
+n_estimators = 100
+max_depth = 3
+learning_rate = 0.1
+subsample = 1.0
+
+[XGBoost.SearchSpace]
+n_estimators = [ 10, 500,]
+max_depth = [ 1, 10,]
+learning_rate = [ 0.001, 1.0,]
+subsample = [ 0.5, 1.0,]
+
+[XGBoost.TunedParameters]
+n_estimators = 316
+max_depth = 9
+learning_rate = 0.1
+subsample = 1.0

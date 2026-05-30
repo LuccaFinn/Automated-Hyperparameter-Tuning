@@ -3,7 +3,8 @@ import torch.nn as nn
 
 
 class Trainer:
-    def __init__(self, early_stopping=True, patience=10, min_delta=1e-4):
+    def __init__(self, task="classification", early_stopping=True, patience=10, min_delta=1e-4):
+        self.task           = task
         self.early_stopping = early_stopping
         self.patience       = patience
         self.min_delta      = min_delta
@@ -15,28 +16,22 @@ class Trainer:
             return nn.L1Loss()
         elif name == "bce":
             return nn.BCEWithLogitsLoss()
-        else:
-            raise ValueError(f"Unbekannte Loss-Funktion: {name}")
 
     def train(self, model, data, params):
-        optimizer = torch.optim.Adam(
-            model.parameters(),
-            lr=params["learning_rate"]
-        )
-
-        loss_fn = self.get_loss_fn(params["loss_function"])
+        optimizer = torch.optim.Adam(model.parameters(), lr=params["learning_rate"])
+        loss_fn   = self.get_loss_fn(params["loss_function"])
 
         X_train, X_val, y_train, y_val = data
 
-        best_val_loss     = float("inf")#loss startet halt im unendlichen
-        epochs_no_improve = 0#counter wie lange nicht improved
-        best_weights      = None #beste gewichte halt, anfang nicht vorhanden
+        best_val_loss     = float("inf")
+        epochs_no_improve = 0
+        best_weights      = None
 
         for epoch in range(params["epochs"]):
             model.train()
             optimizer.zero_grad()
-            output = loss_fn(model(X_train), y_train)
-            output.backward()
+            loss = loss_fn(model(X_train), y_train)
+            loss.backward()
             optimizer.step()
 
             model.eval()

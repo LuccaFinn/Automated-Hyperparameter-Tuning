@@ -2,22 +2,27 @@ class SKLearnEncoderDecoder:
     def __init__(self, algorithm, search_space):
         self.algorithm = algorithm
 
+        #------------------svm
         self.svm_kernel_map = {0: "linear", 1: "rbf", 2: "poly", 3: "sigmoid"}
-        self.svm_gamma_map  = {0: "scale", 1: "auto"}
+        self.svm_gamma_map  = {0: "scale",  1: "auto"}
         self.svm_kernel_rev = {v: k for k, v in self.svm_kernel_map.items()}
         self.svm_gamma_rev  = {v: k for k, v in self.svm_gamma_map.items()}
 
-        #knn ist k nearest neighbors und nicht künstlich neuronales netz
-        self.knn_weights_map = {0: "uniform", 1: "distance"}
+        #------------------knn
+        self.knn_weights_map = {0: "uniform",   1: "distance"}
         self.knn_metric_map  = {0: "euclidean", 1: "manhattan", 2: "minkowski"}
         self.knn_weights_rev = {v: k for k, v in self.knn_weights_map.items()}
         self.knn_metric_rev  = {v: k for k, v in self.knn_metric_map.items()}
 
-        #lr ist logistische regression
+        #------------------ logreg
         self.lr_solver_map  = {0: "lbfgs", 1: "saga"}
-        self.lr_penalty_map = {0: "l2", 1: "none"}
+        self.lr_penalty_map = {0: "l2",    1: "none"}
         self.lr_solver_rev  = {v: k for k, v in self.lr_solver_map.items()}
         self.lr_penalty_rev = {v: k for k, v in self.lr_penalty_map.items()}
+
+    #------------------------------------
+    #endecode
+    #------------------------------------
 
     def encode(self, params):
         if self.algorithm == "svm":
@@ -40,10 +45,20 @@ class SKLearnEncoderDecoder:
                 self.lr_penalty_rev[params["penalty"]]
             ]
         elif self.algorithm == "linear_regression":
-            # Lineare Regression hat keine Hyperparameter zum Tunen
             return [0]
+        elif self.algorithm == "xgboost":
+            return [
+                params["n_estimators"],
+                params["max_depth"],
+                params["learning_rate"],
+                params["subsample"]
+            ]
         else:
             raise ValueError(f"Unbekannter Algorithmus: {self.algorithm}")
+
+    #------------------------------------
+    #decode
+    #------------------------------------
 
     def decode(self, solution):
         if self.algorithm == "svm":
@@ -67,5 +82,12 @@ class SKLearnEncoderDecoder:
             }
         elif self.algorithm == "linear_regression":
             return {}
+        elif self.algorithm == "xgboost":
+            return {
+                "n_estimators":  max(10, int(solution[0])),
+                "max_depth":     max(1,  int(solution[1])),
+                "learning_rate": float(solution[2]),
+                "subsample":     max(0.1, min(1.0, float(solution[3])))
+            }
         else:
             raise ValueError(f"Unbekannter Algorithmus: {self.algorithm}")

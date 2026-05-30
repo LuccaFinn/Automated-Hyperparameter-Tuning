@@ -1,5 +1,6 @@
 [Model]
 algorithm = "logistic_regression"
+task = "regression"   # oder "classification"
 
 [Data]
 input_start = 0
@@ -15,13 +16,13 @@ solver = "lbfgs"
 penalty = "l2"
 
 [LogisticRegression.SearchSpace]
-C = [0.001, 100.0]
-max_iter = [100, 1000]
+C = [0.001, 99.0]
+max_iter = [10, 99]
 solver = ["lbfgs", "saga"]
 penalty = ["l2", "none"]
 
 [LogisticRegression.TunedParameters]
-C = 0.0
-max_iter = 0
-solver = ""
-penalty = ""
+C = 1.0
+max_iter = 100
+solver = "saga"
+penalty = "l2"

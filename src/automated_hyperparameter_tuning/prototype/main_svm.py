@@ -30,7 +30,8 @@ def main():
 
     search_space = config["SVM"]["SearchSpace"]
     encoder      = SKLearnEncoderDecoder(ALGORITHM, search_space)
-    trainer      = SKLearnTrainer()
+    task = config["Model"].get("task", "classification")
+    trainer = SKLearnTrainer(task=task)
 
     initial_params  = config["SVM"]["InitialParameters"]
     initial_encoded = encoder.encode(initial_params)
@@ -69,7 +70,7 @@ def main():
 
     print("\n------------------")
     print("Bestes Ergebnis")
-    print("Fitness (Accuracy):", fitness)
+    print("Fitness (F1-Score):", fitness)
     print("Paramameter:", best_params)
     print("------------------\n")
 

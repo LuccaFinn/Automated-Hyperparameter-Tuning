@@ -12,11 +12,11 @@ class ConfigLoader:
         self.config_path = Path(path).resolve()
 
         if not self.config_path.exists():
-            raise FileNotFoundError(f"CONFIG NICHT GEFUNDEN: {self.config_path}")
+            raise FileNotFoundError(f"Config nicht gefunden: {self.config_path}")
 
         self.config = toml.load(self.config_path)
 
-        self.absolute_csv_path = Path("C:/Users/bjoer/source/repos/Automated-Hyperparameter-Tuning/resources/data/exampleCSVBanana.csv")
+        self.absolute_csv_path = Path("C:/Users/bjoer/source/repos/Automated-Hyperparameter-Tuning/resources/data/exampleCSVSin.csv")
 
     def get_nn_config(self):
         return self.config.get("NeuralNetwork", {})
@@ -27,25 +27,26 @@ class ConfigLoader:
     def load_data(self):
         csv_path = self.absolute_csv_path
 
-        print("CSV Pfad:", csv_path)
-
         if not csv_path.exists():
-            raise FileNotFoundError(f"CSV ncith gefunden: {csv_path}")
+            raise FileNotFoundError(f"CSV NICHT GEFUNDEN: {csv_path}")
 
-        df = pd.read_csv(csv_path)
+        df = pd.read_csv(csv_path) #, header=None
 
         data_config = self.get_data_config()
+        task = self.config["Model"].get("task", "classification")
 
         start = data_config["input_start"]
         end = data_config["input_end"] + 1
         target_col = data_config["target_column"]
 
         X = df.iloc[:, start:end].values
-
         y_raw = df.iloc[:, target_col]
-        le = LabelEncoder()
-        y = le.fit_transform(y_raw).astype(float)
 
+        if task == "classification":
+            le = LabelEncoder()
+            y = le.fit_transform(y_raw).astype(float)
+        else:
+            y = y_raw.values.astype(float)
 
         if np.isnan(y).any():
             mask = ~np.isnan(y)

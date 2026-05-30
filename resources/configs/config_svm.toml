@@ -1,5 +1,6 @@
 [Model]
 algorithm = "svm"
+task = "regression"   # oder "classification"
 
 [Data]
 input_start = 0
@@ -19,6 +20,6 @@ kernel = [ "linear", "rbf", "poly", "sigmoid",]
 gamma = [ "scale", "auto",]
 
 [SVM.TunedParameters]
-C = 38.472932683639705
+C = 17.35204991073989
 kernel = "rbf"
 gamma = "scale"
