@@ -1,0 +1,58 @@
+[Model]
+algorithm = "neural_network"
+task = "regression"
+
+[Data]
+input_start = 0
+input_end = 1
+target_column = 2
+test_size = 0.2
+random_state = 42
+
+[NeuralNetwork]
+random_search_iterations = 20
+
+[NeuralNetwork.InitialParameters]
+layer1 = 2
+layer2 = 10
+layer3 = 1
+activation = "relu"
+learning_rate = 0.01
+epochs = 100
+loss_function = "mse"
+
+[NeuralNetwork.SearchSpace]
+layer1 = [ 1, 2,]
+layer2 = [ 1, 500,]
+layer3 = [ 1, 1,]
+activation = [ "relu", "tanh", "sigmoid",]
+learning_rate = [ 1e-5, 1.0,]
+epochs = [ 10, 500,]
+loss_function = [ "mse", "bce",]
+
+[NeuralNetwork.TunedParameters]
+layer1 = 0
+layer2 = 0
+layer3 = 0
+activation = ""
+learning_rate = 0.0
+epochs = 0
+loss_function = ""
+
+[NeuralNetwork.GridSearchParameters]
+layer1 = 0
+layer2 = 0
+layer3 = 0
+activation = ""
+learning_rate = 0.0
+epochs = 0
+loss_function = ""
+
+[NeuralNetwork.RandomSearchParameters]
+loss_function = "bce"
+learning_rate = 0.500005
+layer3 = 1
+layer2 = 1
+layer1 = 1
+epochs = 206
+activation = "sigmoid"

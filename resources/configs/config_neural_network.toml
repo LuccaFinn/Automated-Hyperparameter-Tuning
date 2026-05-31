@@ -1,11 +1,11 @@
 [Model]
 algorithm = "neural_network"
-task = "regression"
+task = "classification"
 
 [Data]
 input_start = 0
-input_end = 1
-target_column = 2
+input_end = 6
+target_column = 7
 test_size = 0.2
 random_state = 42
 
@@ -29,9 +29,9 @@ loss_function = [ "mse", "bce",]
 
 [NeuralNetwork.TunedParameters]
 layer1 = 2
-layer2 = 57
+layer2 = 70
 layer3 = 1
-activation = "relu"
-learning_rate = 0.01
-epochs = 1919
+activation = "tanh"
+learning_rate = 0.005239840452939109
+epochs = 758
 loss_function = "mse"

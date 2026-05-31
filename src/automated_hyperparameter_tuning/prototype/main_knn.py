@@ -52,10 +52,10 @@ def main():
     ]
 
     ga = pygad.GA(
-        num_generations=10,
-        num_parents_mating=4,
-        sol_per_pop=8,
-        num_genes=3,
+        num_generations=20,
+        num_parents_mating=6,
+        sol_per_pop=20,
+        num_genes=7,
         fitness_func=ga_tuner.fitness_func,
         initial_population=[list(initial_encoded) for _ in range(8)],
         gene_space=gene_space,
