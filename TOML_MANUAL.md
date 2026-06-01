@@ -95,6 +95,7 @@ epochs = [10, 500]
 loss_function = ["mse", "mae"]```
 
 > **Hinweis:** Je größer der SearchSpace, desto länger benötigt der genetische Algorithmus. Es empfiehlt sich, den SearchSpace auf plausible Wertebereiche einzuschränken.
+
 ---
 
 ## 5. [TunedParameters]
