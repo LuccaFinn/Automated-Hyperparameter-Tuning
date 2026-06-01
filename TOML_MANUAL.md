@@ -40,7 +40,7 @@ Die verfügbaren Parameter hängen vom gewählten Algorithmus ab:
 | `layer2` | Anzahl Neuronen in der zweiten versteckten Schicht | `16` |
 | `layer3` | Anzahl Neuronen in der dritten versteckten Schicht | `8` |
 | `activation` | Aktivierungsfunktion (`relu`, `tanh`, `sigmoid`) | `"relu"` |
-| `learning_rate` | Lernrate des Adam-Optimizers | `0.001` |
+| `learning_rate` | Lernrate | `0.001` |
 | `epochs` | Maximale Anzahl Trainingsepochen | `100` |
 | `loss_function` | Verlustfunktion (`mse`, `mae` für Regression; `mse`, `bce` für Klassifikation) | `"mse"` |
 
