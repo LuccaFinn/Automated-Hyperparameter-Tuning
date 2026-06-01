@@ -25,20 +25,24 @@ Darstellung, mit den angegebenen Parametern, gilt jedoch ausschließlich für de
 [Model]
 algorithm = "knn"
 task = "classification"
+
 [Data]
 input_start = 0
 input_end = 6
 target_column = 7
 test_size = 0.2
 random_state = 42
+
 [KNN.InitialParameters]
 n_neighbors = 5
 weights = "uniform"
 metric = "euclidean"
+
 [KNN.SearchSpace]
 n_neighbors = [ 1, 50,]
 weights = [ "uniform", "distance",]
 metric = [ "euclidean", "manhattan", "minkowski",]
+
 [KNN.TunedParameters]
 n_neighbors = 5
 weights = "uniform"
