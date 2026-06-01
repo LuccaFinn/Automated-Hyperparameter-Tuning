@@ -94,7 +94,7 @@ learning_rate = [1e-5, 1.0]
 epochs = [10, 500]
 loss_function = ["mse", "mae"]```
 
-> **Hinweis:** Hinweis: Je größer der SearchSpace, desto länger benötigt der genetische Algorithmus. Es empfiehlt sich, den SearchSpace auf plausible Wertebereiche einzuschränken.
+> **Hinweis:** Je größer der SearchSpace, desto länger benötigt der genetische Algorithmus. Es empfiehlt sich, den SearchSpace auf plausible Wertebereiche einzuschränken.
 ---
 
 ## 5. [TunedParameters]
