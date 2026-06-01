@@ -85,14 +85,16 @@ Die verfügbaren Parameter hängen vom gewählten Algorithmus ab:
 Definiert die Grenzen, innerhalb derer der genetische Algorithmus nach optimalen Hyperparametern sucht. Für jeden Parameter aus InitialParameters wird hier ein Wertebereich angegeben.
 Beispiel für ein neuronales Netz:
 
-```[NeuralNetwork.SearchSpace]
+```
+[NeuralNetwork.SearchSpace]
 layer1 = [1, 128]
 layer2 = [1, 256]
 layer3 = [1, 64]
 activation = ["relu", "tanh", "sigmoid"]
 learning_rate = [1e-5, 1.0]
 epochs = [10, 500]
-loss_function = ["mse", "mae"]```
+loss_function = ["mse", "mae"]
+```
 
 > **Hinweis:** Je größer der SearchSpace, desto länger benötigt der genetische Algorithmus. Es empfiehlt sich, den SearchSpace auf plausible Wertebereiche einzuschränken.
 
