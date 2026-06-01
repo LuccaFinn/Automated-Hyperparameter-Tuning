@@ -15,3 +15,18 @@ Dieses Handbuch erklärt alle verfügbaren Blöcke und Parameter.
 * `Task` Ist das Problem ein Klassifikations- oder Regressionsproblem?
     * Klassifikation **(classification)**
     * Regression **(regression)**
+---
+
+## 2. [Data]
+
+---
+
+## 3. [InitialParameters]
+
+---
+
+## 4. [SearchSpace]
+
+---
+
+## 5. [TunedParameters]
