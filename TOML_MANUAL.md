@@ -20,14 +20,63 @@ Dieses Handbuch erklärt alle verfügbaren Blöcke und Parameter.
 ## 2. [Data]
 
 * Definiert den Pfad zu den Eingabedaten sowie die Aufteilung in Features und Zielvariable.
-      * `input_start` Index der ersten Spalte, die als Feature verwendet wird (inklusive). Zaehlung beginnt bei 0.
+      * `input_start` Index der ersten Spalte, die als Feature verwendet wird (inklusive). Zählung beginnt bei 0.
       * `input_end` Index der letzten Spalte, die als Feature verwendet wird (inklusive).
       * `target_column` Index der Spalte, die als Zielvariable verwendet wird.
-      * `test_size` Anteil der Daten, der fuer die Validierung reserviert wird. Wert zwischen 0.0 und 1.0.
-      * `random_state` Seed fuer die zufaellige Aufteilung der Daten. Sorgt fuer Reproduzierbarkeit.
+      * `test_size` Anteil der Daten, der für die Validierung reserviert wird. Wert zwischen 0.0 und 1.0.
+      * `random_state` Seed für die zufällige Aufteilung der Daten. Sorgt für Reproduzierbarkeit.
 ---
 
 ## 3. [InitialParameters]
+Definiert den Startpunkt für den genetischen Algorithmus. Das erste Individuum der Population wird mit diesen Werten initialisiert. Alle weiteren Individuen sind Kopien davon, die dann durch Mutation variiert werden.
+
+Die verfügbaren Parameter hängen vom gewählten Algorithmus ab:
+
+**neural_network**
+
+| Parameter | Beschreibung | Beispielwert |
+|---|---|---|
+| `layer1` | Anzahl Neuronen in der ersten versteckten Schicht | `32` |
+| `layer2` | Anzahl Neuronen in der zweiten versteckten Schicht | `16` |
+| `layer3` | Anzahl Neuronen in der dritten versteckten Schicht | `8` |
+| `activation` | Aktivierungsfunktion (`relu`, `tanh`, `sigmoid`) | `"relu"` |
+| `learning_rate` | Lernrate des Adam-Optimizers | `0.001` |
+| `epochs` | Maximale Anzahl Trainingsepochen | `100` |
+| `loss_function` | Verlustfunktion (`mse`, `mae` für Regression; `mse`, `bce` für Klassifikation) | `"mse"` |
+
+**svm**
+
+| Parameter | Beschreibung | Beispielwert |
+|---|---|---|
+| `C` | Regularisierungsparameter. Größere Werte = weniger Regularisierung | `1.0` |
+| `kernel` | Kernelfunktion (`linear`, `rbf`, `poly`, `sigmoid`) | `"rbf"` |
+| `gamma` | Einflussreichweite eines Trainingspunktes (`scale`, `auto`) | `"scale"` |
+
+**knn**
+
+| Parameter | Beschreibung | Beispielwert |
+|---|---|---|
+| `n_neighbors` | Anzahl der nächsten Nachbarn | `5` |
+| `weights` | Gewichtung der Nachbarn (`uniform`, `distance`) | `"uniform"` |
+| `metric` | Distanzmetrik (`euclidean`, `manhattan`, `minkowski`) | `"euclidean"` |
+
+**logistic_regression**
+
+| Parameter | Beschreibung | Beispielwert |
+|---|---|---|
+| `C` | Regularisierungsparameter. Größere Werte = weniger Regularisierung | `1.0` |
+| `max_iter` | Maximale Anzahl Iterationen bis zur Konvergenz | `100` |
+| `solver` | Optimierungsalgorithmus (`lbfgs`, `saga`) | `"lbfgs"` |
+
+**xgboost**
+
+| Parameter | Beschreibung | Beispielwert |
+|---|---|---|
+| `n_estimators` | Anzahl der Entscheidungsbäume | `100` |
+| `max_depth` | Maximale Tiefe eines Baumes | `3` |
+| `learning_rate` | Lernrate (auch Shrinkage genannt) | `0.1` |
+| `subsample` | Anteil der Trainingsdaten pro Baum. Wert zwischen 0.0 und 1.0 | `1.0` |
+
 
 ---
 
