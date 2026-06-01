@@ -9,7 +9,6 @@ können jedoch bei der Nutzung von PyCharm auch automatisch installiert werden.
 In diesem Projekt stehen insgesamt sechs verschiedene Algorithmen zur Verfügung dessen Hyperparameter getuned werden können.
 Zu diesen zählen die folglich genannten:
 * **k-Nearest Neighbors (knn)**
-* **Lineare Regression (linear_regression)**
 * **Logistische Regression (logistic_regression)**
 * **Neuronale Netze (neural_network)**
 * **Support Vector Machine (svm)**
@@ -91,7 +90,6 @@ Automated-Hyperparameter-Tuning/
             ├── main_svm.py
             ├── main_knn.py
             ├── main_logistic_regression.py
-            ├── main_linear_regression.py
             ├── main_xgboost.py
             ├── gridsearch_neural_network.py
             ├── gridsearch_svm.py
