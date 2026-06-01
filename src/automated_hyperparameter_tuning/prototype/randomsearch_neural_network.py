@@ -53,12 +53,21 @@ def get_loss_fn(name):
         return nn.BCEWithLogitsLoss()
 
 
-def train_and_evaluate(params, data, input_size, early_stopping=True, patience=10, min_delta=1e-4):
+def train_and_evaluate(params, data, input_size, task, early_stopping=True, patience=10, min_delta=1e-4):
+    if task == "regression" and params["loss_function"] == "bce":
+        return float("inf")
+
+    # Fix seed for reproducibility/consistency across different grid points
+    torch.manual_seed(42)
+    np.random.seed(42)
+
     X_train, X_val, y_train, y_val = data
 
     model     = NeuralNet(params, input_size)
     optimizer = torch.optim.Adam(model.parameters(), lr=params["learning_rate"])
     loss_fn   = get_loss_fn(params["loss_function"])
+
+
 
     best_val_loss     = float("inf")
     epochs_no_improve = 0
@@ -83,8 +92,10 @@ def train_and_evaluate(params, data, input_size, early_stopping=True, patience=1
             epochs_no_improve += 1
 
         if early_stopping and epochs_no_improve >= patience:
-            model.load_state_dict(best_weights)
+            if best_weights is not None:
+                model.load_state_dict(best_weights)
             break
+
 
     if best_weights is not None:
         model.load_state_dict(best_weights)
@@ -93,15 +104,18 @@ def train_and_evaluate(params, data, input_size, early_stopping=True, patience=1
 
 
 def build_param_grid(search_space):
+    lr_start = max(1e-6, search_space["learning_rate"][0])
+    lr_end = max(1e-6, search_space["learning_rate"][1])
     return {
-        "layer1":        list(range(search_space["layer1"][0],        search_space["layer1"][1] + 1,        max(1, (search_space["layer1"][1]  - search_space["layer1"][0])  // 5))),
-        "layer2":        list(range(search_space["layer2"][0],        search_space["layer2"][1] + 1,        max(1, (search_space["layer2"][1]  - search_space["layer2"][0])  // 5))),
-        "layer3":        list(range(search_space["layer3"][0],        search_space["layer3"][1] + 1,        max(1, (search_space["layer3"][1]  - search_space["layer3"][0])  // 5))),
+        "layer1":        list(range(search_space["layer1"][0],        search_space["layer1"][1] + 1,        max(1, (search_space["layer1"][1]  - search_space["layer1"][0])  // 8))),
+        "layer2":        list(range(search_space["layer2"][0],        search_space["layer2"][1] + 1,        max(1, (search_space["layer2"][1]  - search_space["layer2"][0])  // 8))),
+        "layer3":        list(range(search_space["layer3"][0],        search_space["layer3"][1] + 1,        max(1, (search_space["layer3"][1]  - search_space["layer3"][0])  // 8))),
         "activation":    search_space["activation"],
-        "learning_rate": np.linspace(search_space["learning_rate"][0], search_space["learning_rate"][1], 5).tolist(),
-        "epochs":        list(range(search_space["epochs"][0],        search_space["epochs"][1] + 1,        max(1, (search_space["epochs"][1]  - search_space["epochs"][0])  // 5))),
+        "learning_rate": np.logspace(np.log10(lr_start), np.log10(lr_end), 8).tolist(),
+        "epochs":        list(range(search_space["epochs"][0],        search_space["epochs"][1] + 1,        max(1, (search_space["epochs"][1]  - search_space["epochs"][0])  // 8))),
         "loss_function": search_space["loss_function"]
     }
+
 
 
 def main():
@@ -134,8 +148,9 @@ def main():
     #print(f"Iterationen: {n_iter}")
 
     for i, params in enumerate(sampler, 1):
-        loss = train_and_evaluate(params, data, input_size)
-        #print(f"[{i}/{n_iter}] Loss: {loss:.4f} | Params: {params}")
+        loss = train_and_evaluate(params, data, input_size, task)
+
+        print(f"[{i}/{n_iter}] Loss: {loss:.4f} | Params: {params}")
 
         if loss < best_loss:
             best_loss   = loss

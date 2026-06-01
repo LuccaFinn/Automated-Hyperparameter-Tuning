@@ -18,8 +18,12 @@ class Trainer:
             return nn.BCEWithLogitsLoss()
 
     def train(self, model, data, params):
+        if self.task == "regression" and params["loss_function"] == "bce":
+            return -float("inf")
+
         optimizer = torch.optim.Adam(model.parameters(), lr=params["learning_rate"])
         loss_fn   = self.get_loss_fn(params["loss_function"])
+
 
         X_train, X_val, y_train, y_val = data
 
@@ -46,8 +50,10 @@ class Trainer:
                 epochs_no_improve += 1
 
             if self.early_stopping and epochs_no_improve >= self.patience:
-                model.load_state_dict(best_weights)
+                if best_weights is not None:
+                    model.load_state_dict(best_weights)
                 break
+
 
         if best_weights is not None:
             model.load_state_dict(best_weights)

@@ -1,6 +1,6 @@
 [Model]
 algorithm = "logistic_regression"
-task = "regression"   # oder "classification"
+task = "classification"   # oder "regression"
 
 [Data]
 input_start = 0

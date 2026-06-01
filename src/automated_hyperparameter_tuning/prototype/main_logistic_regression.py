@@ -72,9 +72,12 @@ def main():
 
     print("\n------------------")
     print("Bestes Ergebnis")
-    print("Fitness (F1-Score):", fitness)
+    label = "MSE" if task == "regression" else "F1-Score"
+    val = -fitness if task == "regression" else fitness
+    print(f"Fitness ({label}): {val}")
     print("Paramameter:", best_params)
     print("------------------\n")
+
 
     config_loader.config["LogisticRegression"]["TunedParameters"] = best_params
     config_loader.save(config_path)

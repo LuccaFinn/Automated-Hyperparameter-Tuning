@@ -1,16 +1,16 @@
 [Model]
 algorithm = "neural_network"
-task = "regression"
+task = "classification"
 
 [Data]
 input_start = 0
-input_end = 1
-target_column = 2
+input_end = 6
+target_column = 7
 test_size = 0.2
 random_state = 42
 
 [NeuralNetwork]
-random_search_iterations = 20
+random_search_iterations = 1000
 
 [NeuralNetwork.InitialParameters]
 layer1 = 2
@@ -22,7 +22,7 @@ epochs = 100
 loss_function = "mse"
 
 [NeuralNetwork.SearchSpace]
-layer1 = [ 1, 2,]
+layer1 = [ 7, 7,]
 layer2 = [ 1, 500,]
 layer3 = [ 1, 1,]
 activation = [ "relu", "tanh", "sigmoid",]
@@ -40,19 +40,19 @@ epochs = 0
 loss_function = ""
 
 [NeuralNetwork.GridSearchParameters]
-layer1 = 0
-layer2 = 0
-layer3 = 0
-activation = ""
-learning_rate = 0.0
-epochs = 0
-loss_function = ""
+activation = "sigmoid"
+epochs = 206
+layer1 = 7
+layer2 = 25
+layer3 = 1
+learning_rate = 0.12500875
+loss_function = "mse"
 
 [NeuralNetwork.RandomSearchParameters]
-loss_function = "bce"
-learning_rate = 0.500005
+loss_function = "mse"
+learning_rate = 0.2500075
 layer3 = 1
 layer2 = 1
-layer1 = 1
-epochs = 206
+layer1 = 7
+epochs = 304
 activation = "sigmoid"

@@ -23,3 +23,8 @@ gamma = [ "scale", "auto",]
 C = 37.19571013508521
 kernel = "rbf"
 gamma = "scale"
+
+[SVM.GridSearchParameters]
+C = 25.0075
+gamma = "scale"
+kernel = "rbf"

@@ -32,9 +32,10 @@ def train_and_evaluate(params, data, task):
     predictions = model.predict(X_val)
 
     if task == "regression":
-        return -mean_squared_error(y_val, predictions)
+        return mean_squared_error(y_val, predictions)
     else:
         return f1_score(y_val, predictions, average="weighted")
+
 
 
 def build_param_grid(search_space):
@@ -64,7 +65,7 @@ def main():
     label = "MSE" if task == "regression" else "F1"
 
     param_grid  = build_param_grid(search_space)
-    best_score  = float("-inf")
+    best_score  = float("inf") if task == "regression" else float("-inf")
     best_params = None
     total       = len(list(ParameterGrid(param_grid)))
 
@@ -75,7 +76,8 @@ def main():
         score = train_and_evaluate(params, data, task)
         #print(f"[{i}/{total}] {label}: {score:.4f} | Params: {params}")
 
-        if score > best_score:
+        is_better = (score < best_score) if task == "regression" else (score > best_score)
+        if is_better:
             best_score  = score
             best_params = params
 
@@ -84,6 +86,8 @@ def main():
     print(f"{label}:    {best_score:.4f}")
     print(f"Parameter: {best_params}")
     print("------------------\n")
+
+
 
     config_loader.config["SVM"]["GridSearchParameters"] = best_params
     config_loader.save(config_path)

@@ -16,7 +16,12 @@ class ConfigLoader:
 
         self.config = toml.load(self.config_path)
 
-        self.absolute_csv_path = Path("C:/Users/bjoer/source/repos/Automated-Hyperparameter-Tuning/resources/data/exampleCSVSin.csv")
+        project_root = self.config_path.parents[2]
+        target_col = self.config.get("Data", {}).get("target_column", 7)
+        if target_col == 2:
+            self.absolute_csv_path = project_root / "resources" / "data" / "exampleCSVBanana.csv"
+        else:
+            self.absolute_csv_path = project_root / "resources" / "data" / "exampleCSVBanana.csv"
 
     def get_nn_config(self):
         return self.config.get("NeuralNetwork", {})

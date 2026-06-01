@@ -19,19 +19,19 @@ epochs = 100
 loss_function = "mse"
 
 [NeuralNetwork.SearchSpace]
-layer1 = [ 2, 2,]
-layer2 = [ 1, 100,]
+layer1 = [ 7, 7,]
+layer2 = [ 1, 500,]
 layer3 = [ 1, 1,]
 activation = [ "relu", "tanh", "sigmoid",]
-learning_rate = [ 0.001, 0.01,]
-epochs = [ 100, 2000,]
+learning_rate = [ 1e-5, 1.0,]
+epochs = [ 10, 500,]
 loss_function = [ "mse", "bce",]
 
 [NeuralNetwork.TunedParameters]
-layer1 = 2
-layer2 = 70
+layer1 = 7
+layer2 = 231
 layer3 = 1
-activation = "tanh"
-learning_rate = 0.005239840452939109
-epochs = 758
+activation = "relu"
+learning_rate = 0.01
+epochs = 398
 loss_function = "mse"

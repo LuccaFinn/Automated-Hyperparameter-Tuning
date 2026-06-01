@@ -90,12 +90,14 @@ def main():
     print("Dauer insgesamt: " + str(dauer))
 
     solution, fitness, _ = ga.best_solution()
+    best_loss = -fitness
 
     print("\n------------------")
     print("Bestes Ergebnis")
     print("Lösung:", solution)
-    print("Loss:", -fitness)
+    print("Loss:", best_loss)
     print("------------------\n")
+
 
     best_params = encoder.decode(solution)
     print("Parameter:", best_params)

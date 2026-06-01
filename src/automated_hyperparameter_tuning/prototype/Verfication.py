@@ -70,7 +70,11 @@ def verify_neural_network(config_path):
     model      = NeuralNet(params, input_size)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=params["learning_rate"])
-    loss_fn   = nn.MSELoss() if params["loss_function"] == "mse" else nn.BCEWithLogitsLoss()
+    if task == "regression":
+        loss_fn = nn.MSELoss() if params.get("loss_function") != "mae" else nn.L1Loss()
+    else:
+        loss_fn = nn.BCEWithLogitsLoss()
+
 
     for _ in range(params["epochs"]):
         model.train()
@@ -249,5 +253,4 @@ if __name__ == "__main__":
     verify_svm(build_path("config_svm.toml"))
     verify_knn(build_path("config_knn.toml"))
     verify_logistic_regression(build_path("config_logistic_regression.toml"))
-    verify_linear_regression(build_path("config_linear_regression.toml"))
     verify_xgboost(build_path("config_xgboost.toml"))

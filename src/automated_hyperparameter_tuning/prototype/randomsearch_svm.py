@@ -32,9 +32,10 @@ def train_and_evaluate(params, data, task):
     predictions = model.predict(X_val)
 
     if task == "regression":
-        return -mean_squared_error(y_val, predictions)
+        return mean_squared_error(y_val, predictions)
     else:
         return f1_score(y_val, predictions, average="weighted")
+
 
 
 def build_param_grid(search_space):
@@ -65,7 +66,7 @@ def main():
 
     param_grid  = build_param_grid(search_space)
     n_iter      = config["SVM"].get("random_search_iterations", 20)
-    best_score  = float("-inf")
+    best_score  = float("inf") if task == "regression" else float("-inf")
     best_params = None
     sampler     = list(ParameterSampler(param_grid, n_iter=n_iter, random_state=42))
 
@@ -76,7 +77,8 @@ def main():
         score = train_and_evaluate(params, data, task)
         print(f"[{i}/{n_iter}] {label}: {score:.4f} | Params: {params}")
 
-        if score > best_score:
+        is_better = (score < best_score) if task == "regression" else (score > best_score)
+        if is_better:
             best_score  = score
             best_params = params
 
@@ -85,6 +87,8 @@ def main():
     print(f"{label}:    {best_score:.4f}")
     print(f"Parameter: {best_params}")
     print("------------------\n")
+
+
 
     config_loader.config["SVM"]["RandomSearchParameters"] = best_params
     config_loader.save(config_path)
