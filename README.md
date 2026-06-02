@@ -95,7 +95,7 @@ Automated-Hyperparameter-Tuning/
             ├── gridsearch_svm.py
             ├── randomsearch_neural_network.py
             ├── randomsearch_svm.py
-            └── ConfigConfigurator.py # Veraltete Datei, die nicht benutzt wurde
+            └── ConfigConfigurator.py         # Veraltete Datei, die nicht benutzt wurde
 ```
 
 ## Autor*innen
