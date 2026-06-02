@@ -87,9 +87,9 @@ Beispiel für ein neuronales Netz:
 
 ```
 [NeuralNetwork.SearchSpace]
-layer1 = [1, 128]
+layer1 = [2, 2]
 layer2 = [1, 256]
-layer3 = [1, 64]
+layer3 = [1, 1]
 activation = ["relu", "tanh", "sigmoid"]
 learning_rate = [1e-5, 1.0]
 epochs = [10, 500]
@@ -101,5 +101,15 @@ loss_function = ["mse", "mae"]
 ---
 
 ## 5. [TunedParameters]
-Wird automatisch vom Programm befüllt, nachdem der genetische Algorithmus abgeschlossen hat. Dieser Block muss in der `.toml` vorhanden sein, sollte aber nicht manuell verändert werden.
-Nach dem Tuning enthält dieser Bereich die besten gefundenen Hyperparameter und kann zur Verifikation und zum direkten Aufbau des Modells verwendet werden.
+Wird automatisch vom Programm befüllt, nachdem der genetische Algorithmus abgeschlossen hat. Dieser Block muss in der `.toml` vorhanden sein, sollte aber nicht manuell verändert werden. Nach dem Tuning enthält dieser Bereich die besten gefundenen Hyperparameter und kann zur Verifikation und zum direkten Aufbau des Modells verwendet werden.
+Beispiel für ein neuronales Netz:
+```
+[TunedParameters]
+layer1 = 2
+layer2 = 69
+layer3 = 1
+activation = "tanh"
+learning_rate = 0.005239840452939109
+epochs = 276
+loss_function = "mse"
+```
