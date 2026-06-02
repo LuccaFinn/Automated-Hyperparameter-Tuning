@@ -74,7 +74,7 @@ Die verfügbaren Parameter hängen vom gewählten Algorithmus ab:
 |---|---|---|
 | `n_estimators` | Anzahl der Entscheidungsbäume | `100` |
 | `max_depth` | Maximale Tiefe eines Baumes | `3` |
-| `learning_rate` | Lernrate (auch Shrinkage genannt) | `0.1` |
+| `learning_rate` | Lernrate | `0.1` |
 | `subsample` | Anteil der Trainingsdaten pro Baum. Wert zwischen 0.0 und 1.0 | `1.0` |
 
 
