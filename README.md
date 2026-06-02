@@ -85,7 +85,7 @@ Automated-Hyperparameter-Tuning/
             ├── GATuner.py
             ├── SKLearnGATuner.py
             ├── NeuralNet.py
-            ├── verify_all.py
+            ├── verification.py
             ├── main_neural_network.py
             ├── main_svm.py
             ├── main_knn.py
@@ -94,7 +94,8 @@ Automated-Hyperparameter-Tuning/
             ├── gridsearch_neural_network.py
             ├── gridsearch_svm.py
             ├── randomsearch_neural_network.py
-            └── randomsearch_svm.py
+            ├── randomsearch_svm.py
+            └── ConfigConfigurator.py (Veraltete Datei, die nicht benutzt wurde)
 ```
 
 ## Autor*innen
