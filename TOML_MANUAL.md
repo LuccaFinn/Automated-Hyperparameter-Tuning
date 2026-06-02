@@ -104,7 +104,7 @@ loss_function = ["mse", "mae"]
 Wird automatisch vom Programm befüllt, nachdem der genetische Algorithmus abgeschlossen hat. Dieser Block muss in der `.toml` vorhanden sein, sollte aber nicht manuell verändert werden. Nach dem Tuning enthält dieser Bereich die besten gefundenen Hyperparameter und kann zur Verifikation und zum direkten Aufbau des Modells verwendet werden.
 Beispiel für ein neuronales Netz:
 ```
-[TunedParameters]
+[NeuralNetwork.TunedParameters]
 layer1 = 2
 layer2 = 69
 layer3 = 1
