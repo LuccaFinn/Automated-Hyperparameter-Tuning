@@ -74,7 +74,7 @@ def main():
 
     for i, params in enumerate(ParameterGrid(param_grid), 1):
         score = train_and_evaluate(params, data, task)
-        #print(f"[{i}/{total}] {label}: {score:.4f} | Params: {params}")
+        print(f"[{i}/{total}] {label}: {score:.4f} | Params: {params}")
 
         is_better = (score < best_score) if task == "regression" else (score > best_score)
         if is_better:

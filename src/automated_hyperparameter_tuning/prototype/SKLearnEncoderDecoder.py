@@ -2,27 +2,23 @@ class SKLearnEncoderDecoder:
     def __init__(self, algorithm, search_space):
         self.algorithm = algorithm
 
-        #------------------svm
+        #für SVM
         self.svm_kernel_map = {0: "linear", 1: "rbf", 2: "poly", 3: "sigmoid"}
         self.svm_gamma_map  = {0: "scale",  1: "auto"}
         self.svm_kernel_rev = {v: k for k, v in self.svm_kernel_map.items()}
         self.svm_gamma_rev  = {v: k for k, v in self.svm_gamma_map.items()}
 
-        #------------------knn
+        #für künstlich neuronale Netze
         self.knn_weights_map = {0: "uniform",   1: "distance"}
         self.knn_metric_map  = {0: "euclidean", 1: "manhattan", 2: "minkowski"}
         self.knn_weights_rev = {v: k for k, v in self.knn_weights_map.items()}
         self.knn_metric_rev  = {v: k for k, v in self.knn_metric_map.items()}
 
-        #------------------ logreg
+        #für logistische regression
         self.lr_solver_map  = {0: "lbfgs", 1: "saga"}
         self.lr_penalty_map = {0: "l2",    1: "none"}
         self.lr_solver_rev  = {v: k for k, v in self.lr_solver_map.items()}
         self.lr_penalty_rev = {v: k for k, v in self.lr_penalty_map.items()}
-
-    #------------------------------------
-    #endecode
-    #------------------------------------
 
     def encode(self, params):
         if self.algorithm == "svm":
@@ -55,10 +51,6 @@ class SKLearnEncoderDecoder:
             ]
         else:
             raise ValueError(f"Unbekannter Algorithmus: {self.algorithm}")
-
-    #------------------------------------
-    #decode
-    #------------------------------------
 
     def decode(self, solution):
         if self.algorithm == "svm":

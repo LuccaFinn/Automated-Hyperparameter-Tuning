@@ -30,7 +30,6 @@ class SKLearnTrainer:
                     metric=params["metric"]
                 )
         elif algorithm == "logistic_regression":
-            # Logreg immer classifikation
             return LogisticRegression(
                 C=params["C"],
                 max_iter=params["max_iter"],

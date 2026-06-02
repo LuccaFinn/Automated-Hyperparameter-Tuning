@@ -57,7 +57,6 @@ def train_and_evaluate(params, data, input_size, task, early_stopping=True, pati
     if task == "regression" and params["loss_function"] == "bce":
         return float("inf")
 
-    # Fix seed for reproducibility/consistency across different grid points
     torch.manual_seed(42)
     np.random.seed(42)
 

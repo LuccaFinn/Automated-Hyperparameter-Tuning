@@ -1,3 +1,4 @@
+#Diese TOML haben wir für GridSearch und RandomSearch benutzt, um die einzelnen Ergebnisse getrennt zu haben, auch wenn es doppelt gemoppelt ist.
 [Model]
 algorithm = "svm"
 task = "classification"   # "classification" oder "regression"
@@ -10,7 +11,7 @@ test_size = 0.2
 random_state = 42
 
 [SVM]
-random_search_iterations = 20
+random_search_iterations = 1000
 
 [SVM.InitialParameters]
 C = 1.0

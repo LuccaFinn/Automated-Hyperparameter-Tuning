@@ -29,9 +29,9 @@ loss_function = [ "mse", "bce",]
 
 [NeuralNetwork.TunedParameters]
 layer1 = 7
-layer2 = 231
+layer2 = 323
 layer3 = 1
-activation = "relu"
+activation = "tanh"
 learning_rate = 0.01
-epochs = 398
+epochs = 484
 loss_function = "mse"

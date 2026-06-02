@@ -57,7 +57,6 @@ def train_and_evaluate(params, data, input_size, task, early_stopping=True, pati
     if task == "regression" and params["loss_function"] == "bce":
         return float("inf")
 
-    # Fix seed for reproducibility/consistency across different grid points
     torch.manual_seed(42)
     np.random.seed(42)
 
@@ -118,7 +117,7 @@ def build_param_grid(search_space):
 
 
 def build_fine_grid(best_params, search_space):
-    # layer1:
+    #layer1
     l1_start, l1_end = search_space["layer1"][0], search_space["layer1"][1]
     coarse_l1_step = max(1, (l1_end - l1_start) // 8)
     l1_range = [max(l1_start, best_params["layer1"] - coarse_l1_step),
@@ -126,7 +125,7 @@ def build_fine_grid(best_params, search_space):
     fine_l1 = np.linspace(l1_range[0], l1_range[1], 8).astype(int).tolist()
     fine_l1 = sorted(list(set(fine_l1)))
 
-    # layer2:
+    #layer2
     l2_start, l2_end = search_space["layer2"][0], search_space["layer2"][1]
     coarse_l2_step = max(1, (l2_end - l2_start) // 8)
     l2_range = [max(l2_start, best_params["layer2"] - coarse_l2_step),
@@ -134,7 +133,7 @@ def build_fine_grid(best_params, search_space):
     fine_l2 = np.linspace(l2_range[0], l2_range[1], 8).astype(int).tolist()
     fine_l2 = sorted(list(set(fine_l2)))
 
-    # layer3:
+    #layer3
     l3_start, l3_end = search_space["layer3"][0], search_space["layer3"][1]
     coarse_l3_step = max(1, (l3_end - l3_start) // 8)
     l3_range = [max(l3_start, best_params["layer3"] - coarse_l3_step),
@@ -142,7 +141,7 @@ def build_fine_grid(best_params, search_space):
     fine_l3 = np.linspace(l3_range[0], l3_range[1], 8).astype(int).tolist()
     fine_l3 = sorted(list(set(fine_l3)))
 
-    # learning_rate:
+    #learning rate
     lr_start = max(1e-6, search_space["learning_rate"][0])
     lr_end = max(1e-6, search_space["learning_rate"][1])
     coarse_lr_log_step = (np.log10(lr_end) - np.log10(lr_start)) / 7
@@ -151,7 +150,7 @@ def build_fine_grid(best_params, search_space):
                     min(np.log10(lr_end), best_lr_log + coarse_lr_log_step)]
     fine_lr = np.logspace(lr_log_range[0], lr_log_range[1], 8).tolist()
 
-    # epochs:
+    #epochen
     epochs_start, epochs_end = search_space["epochs"][0], search_space["epochs"][1]
     coarse_epochs_step = max(1, (epochs_end - epochs_start) // 8)
     epochs_range = [max(epochs_start, best_params["epochs"] - coarse_epochs_step),
@@ -192,8 +191,7 @@ def main():
     data       = (X_train, X_val, y_train, y_val)
     input_size = X_train.shape[1]
 
-    # === PHASE 1: COARSE GRID SEARCH ===
-    print("\n>>> STARTE PHASE 1: GROBE GRID-SUCHE (Coarse Grid Search) <<<")
+    print("\n Grob Grid Suche gestartet")
     param_grid_coarse = build_param_grid(search_space)
     best_loss_coarse  = float("inf")
     best_params_coarse = None
@@ -207,21 +205,20 @@ def main():
             best_loss_coarse   = loss
             best_params_coarse = params
 
-    print("\n--- Ergebnis der Grob-Suche ---")
+    print("\n Ergebnis der Grob-Suche")
     print(f"Bester Grob-Loss:   {best_loss_coarse:.4f}")
     print(f"Beste Grob-Parameter: {best_params_coarse}")
     print("--------------------------------\n")
 
     if best_params_coarse is None or best_loss_coarse == float("inf"):
-        print("Fehler: Keine gültigen Parameter in der Grob-Suche gefunden!")
+        print("Fehler: Keine gültigen Parameter in der Grob-Suche gefunden")
         return
 
     global_best_loss = best_loss_coarse
     global_best_params = best_params_coarse
     source_phase = "Grobe Grid-Suche"
 
-    # === PHASE 2: FINE GRID SEARCH ===
-    print(">>> STARTE PHASE 2: FEINE GRID-SUCHE (Fine Grid Search) <<<")
+    print("Fein Grid Suche gestartet")
     param_grid_fine = build_fine_grid(best_params_coarse, search_space)
     best_loss_fine  = float("inf")
     best_params_fine = None
@@ -235,7 +232,7 @@ def main():
             best_loss_fine   = loss
             best_params_fine = params
 
-    print("\n--- Ergebnis der Fein-Suche ---")
+    print("\n Ergebnis der Fein-Suche")
     print(f"Bester Fein-Loss:   {best_loss_fine:.4f}")
     print(f"Beste Fein-Parameter: {best_params_fine}")
     print("--------------------------------\n")
@@ -246,7 +243,7 @@ def main():
         source_phase = "Feine Grid-Suche"
 
     print("\n------------------")
-    print("GLOBAL BESTES ERGEBNIS")
+    print("Bestes Ergebnis")
     print(f"Bester Loss:   {global_best_loss:.4f}")
     print(f"Parameter:     {global_best_params}")
     print(f"Gefunden in:   {source_phase}")

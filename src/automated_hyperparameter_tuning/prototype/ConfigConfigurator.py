@@ -22,7 +22,7 @@ def main():
 
     algorithm = config["Algorithm"]
 
-    # Festlegen der initialen parameter hier, so müssen die nicht von Gruppe 1 angegeben werden
+    # Festlegen der initialen parameter hier, so müssen die nicht von Gruppe 1 angegeben werden - UNFINISHED!
     if algorithm == "knn":
 
         grenzeLayer1 = abs(config["Data"]["input_start"] - config["Data"]["input_end"] - 1)
